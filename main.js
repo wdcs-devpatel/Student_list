@@ -47,7 +47,6 @@ function Asc() {
 
 function Desc() {
   students.sort((a, b) => b.grade - a.grade);
-
   showtable(students);
 }
 
