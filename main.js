@@ -26,22 +26,20 @@ students.map((student, arr) => {
 }
  showtable(students);
 
+ 
   function deletestudent(arr) {
   students.splice(arr, 1);
   showtable(students);
 }
 
  function searchStudent() {
-
   let value = document.getElementById("searchBox").value.toLowerCase();
-
   let find = students.filter(stu => stu.name.toLowerCase().includes(value));
   showtable(find);
 }
 
 function Asc() {
   students.sort((a, b) => a.grade - b.grade);
-
   showtable(students);
 }
 
