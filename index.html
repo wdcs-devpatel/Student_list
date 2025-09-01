@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student List</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>Student List</h1>
+
+  <div>
+    <label class="primary">Search by Name:</label>
+
+    <input type="text" id="searchBox" placeholder="Enter Name">
+    
+    <button onclick="searchStudent()" class="prime">Search</button>
+  </div>
+
+  <div>
+
+    <label class="primary">Sort Grade:</label>
+    <button onclick="Asc()" class="prime">Ascending</button>
+    <button onclick="Desc()"class="prime">Descending</button>
+
+  </div>
+
+  <table id="studentTable">
+
+    <thead>
+        <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Grade</th>
+        <th>Course</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="tablebody">
+    </tbody>
+  </table>
+
+  <script src="main.js"></script>
+</body>
+</html>
