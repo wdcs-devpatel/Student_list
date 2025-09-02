@@ -27,8 +27,11 @@ students.map((student, arr) => {
  showtable(students);
 
   function deletestudent(arr) {
-  students.splice(arr, 1);
+  if (confirm("Are you sure you want to delete this item?")) {
+    students.splice(arr, 1);
   showtable(students);
+  console.log("Item deleted.");
+} 
 }
 
  function searchStudent() {
