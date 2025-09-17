@@ -1,44 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
   <title>Student List</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
+  <div class="container">
+    <h1>Student List</h1>
 
-  <h1>Student List</h1>
-
-  <div>
-    <label class="primary">Search by Name:</label>
-    <input type="text" id="searchBar" placeholder="Enter Name"> 
-    <button onclick="searchStudent()" class="prime">Search</button>
-  </div>
-
-  <div>
-
-    <label class="primary">Sort Grade:</label>
-    <button onclick="Asc()" class="prime">Ascending</button>
-    <button onclick="Desc()"class="prime">Descending</button>
-
-  </div>
-
-  <table id="studentTable">
-
-    <thead>
+    <div >
+    <table>
+      <thead>
         <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Grade</th>
-        <th>Course</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody id="table">
-    </tbody>
-
-
-  </table>
-
-  <script src="main.js"></script>
+            <th>ID</th>
+            <th>
+             <input type="text" id="searchbar" placeholder="🔍 Search by name"  onchange="searchStudent(event)"/>
+            </input>
+          </th>
+            <th onclick="AscDesc()">Grade ↕️</th>
+            <th>Course</th>
+            <th>Action</th>
+        </tr>  
+        </thead>
+        <tbody id="table">
+     </tbody>
+   </table>
+  </div>
+  </div>
+<script src="main.js"></script>
 </body>
 </html>
