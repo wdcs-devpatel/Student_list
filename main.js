@@ -32,15 +32,9 @@ function showtable(students) {
     });                                                                  
 }
                                                             
-
-
-
 showtable(students);
 function searchStudent() {
     let value = document.getElementById("searchbar").value.toLowerCase();
-
-  
-
     let find = students.filter(stu => stu.name.toLowerCase().includes(value));
 
     if (find.length === 0) {
@@ -82,7 +76,8 @@ function Actions(action, arr) {
         let newGrade = prompt("Enter new grade:", students.grade);
         let newCourse = prompt("Enter new course:", students.course);
 
-        if (newName && newGrade && newCourse) {
+    
+    if (newName && newGrade && newCourse) {
             students[arr].name = newName;
             students[arr].grade = newGrade;
             students[arr].course = newCourse;
