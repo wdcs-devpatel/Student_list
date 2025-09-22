@@ -1,33 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
   <title>Student List</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
   <div class="container">
     <h1>Student List</h1>
-
-    <div >
-    <table>
-      <thead>
-        <tr>
+    <div class="search">
+      <input type="text" id="searchbar" class="search-input" placeholder="🔍 Search by name..."
+        onchange="searchStudent()" />
+    </div>
+    <div>
+      <table>
+        <thead>
+          <tr>
             <th>ID</th>
-            <th>
-             <input type="text" id="searchbar" placeholder="🔍 Search by name"  onchange="searchStudent(event)"/>
-            </input>
-          </th>
-            <th onclick="AscDesc() ">Grade ↕️</th>
+            <th>Name</th>
+            <th>City</th>
             <th>Course</th>
+            <th>Percentage</th>
+            <th onclick="AscDesc()">Grade <span id="grades">↕</span></th>
             <th>Action</th>
-        </tr>  
+          </tr>
         </thead>
-        <tbody id="table">
-     </tbody>
-   </table>
+        <tbody id="table"></tbody>
+      </table>
+    </div>
   </div>
-  </div>
-<script src="main.js"></script>
+  <script src="main.js"></script>
 </body>
+
 </html>
