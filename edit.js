@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const students = JSON.parse(sessionStorage.getItem('studentsData')) || [];
     let student = index !== null ? students[index] : null;
 
-    // ... (rest of the 'if (student)' block remains the same)
 
     if (student) {
         document.getElementById("studentIndex").value = index;
