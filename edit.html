@@ -1,248 +1,257 @@
-<!DOCTYPE html>
-<html>
+  <!DOCTYPE html>
+  <html>
 
-<head>
-  <title>Edit Student</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #f0f2f5;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      padding: 40px 20px;
-      box-sizing: border-box;
-    }
+  <head>
+    <title>Edit Student</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f0f2f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 40px 20px;
+        box-sizing: border-box;
+      }
 
-    .container {
-      background-color: #fff;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-      width: 100%;  
-      max-width: 900px;
-      padding: 20px 30px;
-      box-sizing: border-box;
-    }
-
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 0;
-      border-bottom: 1px solid #e9ecef;
-    }
-
-    .header .btn {
-      padding: 10px 25px;
-      border: 1px solid #ced4da;
-      border-radius: 8px;
-      background-color: #f8f9fa;
-      color: #495057;
-      font-size: 1em;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      text-align: center;
-    }
-
-    #teachers-container .dynamic-section .edit-field {
-      margin-bottom: 25px;
-    }
-
-    .header .btn:hover {
-      background-color: #e9ecef;
-    }
-
-    .header .save-btn {
-      background-color: #007bff;
-      border-color: #007bff;
-      color: #fff;
-      font-weight: 600;
-      padding: 10px 25px;
-      font-size: 1.15em;
-      text-align: center;
-      border-radius: 8px;
-    }
-
-
-    .header .save-btn:hover {
-      background-color: #0056b3;
-      border-color: #0056b3;
-    }
-
-    .content {
-      padding: 30px 0;
-    }
-
-    .content h1 {
-      font-size: 2em;
-      color: #343a40;
-      margin-bottom: 20px;
-      font-weight: 700;
-    }
-
-    .form-section {
-      margin-bottom: 30px;
-    }
-
-    .form-section h2 {
-      font-size: 1.4em;
-      color: #495057;
-      margin-bottom: 15px;
-      font-weight: 600;
-    }
-
-    .edit-field label {
-      font-size: 1.05em;
-      color: #495057;
-      margin-bottom: 5px;
-      font-weight: 1000;
-      font-size: 20px;
-    }
-
-    .edit-field input {
-      width: 100%;
-      padding: 12px 15px;
-      border: 1px solid #ced4da;
-      border-radius: 8px;
-      font-size: 1.05em;
-      box-sizing: border-box;
-    }
-
-    .edit-field input:focus {
-      outline: none;
-      border-color: #007bff;
-      box-shadow: 0 0 0 0.15rem rgba(0, 123, 255, 0.25);
-    }
-
-    .edit-field .error-message {
-      color: #dc3545;
-      font-size: 0.9em;
-      margin-top: 5px;
-      display: none;
-    }
-
-    .row {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-
-    #studentId {
-      background-color: #f5f5f5;
-      cursor: not-allowed;
-    }
-
-    .dynamic-section {
-      margin-bottom: 20px;
-      padding: 20px;
-      border: 1px solid #eee;
-      border-radius: 8px;
-      background: #fafafa;
-      font-size: 1.05em;
-    }
-
-    .dynamic-section h3 {
-      margin-bottom: 10px;
-      font-size: 1.2em;
-      color: #333;
-    }
-
-    @media(max-width: 700px) {
-      .row {
-        grid-template-columns: 1fr;
+      .container {
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        width: 100%;
+        max-width: 900px;
+        padding: 20px 30px;
+        box-sizing: border-box;
       }
 
       .header {
-        flex-direction: column;
-        gap: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+        border-bottom: 1px solid #e9ecef;
       }
 
-      .header .btn,
+      .header .btn {
+        padding: 10px 25px;
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        background-color: #f8f9fa;
+        color: #495057;
+        font-size: 1em;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: center;
+      }
+
+      #teachers-container .dynamic-section .edit-field {
+        margin-bottom: 25px;
+      }
+
+      .header .btn:hover {
+        background-color: #e9ecef;
+      }
+
       .header .save-btn {
-        width: 100%;
+        background-color: #007bff;
+        border-color: #007bff;
+        color: #fff;
+        font-weight: 600;
+        padding: 10px 25px;
+        font-size: 1.15em;
+        text-align: center;
+        border-radius: 8px;
       }
-    }
-  </style>
-</head>
 
-<body>
-  <div class="container">
-    <div class="header">
-      <button class="btn" type="button" onclick="window.location.href='index.html'"><i class="fas fa-arrow-left"></i>
-        Cancel</button>
-      <button class="btn save-btn" type="submit" form="edit-form">Save Changes</button>
-    </div>
+      .header .save-btn:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+      }
 
-    <div class="content">
-      <h1>Edit Student</h1>
-      <form id="edit-form">
-        <input type="hidden" id="studentIndex">
+      .content {
+        padding: 30px 0;
+      }
 
-        <div class="form-section">
-          <h2>Personal Information</h2>
-          <div class="row">
-            <div class="edit-field">
-              <label for="studentId">Student ID</label>
-              <input type="text" id="studentId" readonly>
-            </div>
-            <div class="edit-field">
-              <label for="name">Name</label>
-              <input type="text" id="name">
-              <div class="error-message" id="name-error"></div>
-            </div>
-            <div class="edit-field">
-              <label for="course">Course</label>
-              <input type="text" id="course">
-              <div class="error-message" id="course-error"></div>
+      .content h1 {
+        font-size: 2em;
+        color: #343a40;
+        margin-bottom: 20px;
+        font-weight: 700;
+      }
+
+      .form-section {
+        margin-bottom: 30px;
+      }
+
+      .form-section h2 {
+        font-size: 1.4em;
+        color: #495057;
+        margin-bottom: 15px;
+        font-weight: 600;
+      }
+
+      .edit-field label {
+        font-size: 20px;
+        color: #495057;
+        margin-bottom: 5px;
+        font-weight: 1000;
+        display: block;
+      }
+
+      .edit-field input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        font-size: 1.05em;
+        box-sizing: border-box;
+      }
+
+      .edit-field input:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.15rem rgba(0, 123, 255, 0.25);
+      }
+
+      .edit-field .error-message {
+        color: #dc3545;
+        font-size: 0.9em;
+        margin-top: 5px;
+        display: none;
+      }
+
+      .row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      #studentId {
+        background-color: #f5f5f5;
+        cursor: not-allowed;
+      }
+
+      .dynamic-section {
+        margin-bottom: 20px;
+        padding: 20px;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        background: #fafafa;
+        font-size: 1.05em;
+      }
+
+      .dynamic-section h3 {
+        margin-bottom: 10px;
+        font-size: 1.2em;
+        color: #333;
+      }
+
+      .dynamic-section h2 input {
+        border: none;
+        background: transparent;
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #333;
+        pointer-events: none;
+        width: auto;
+      }
+
+      @media(max-width: 700px) {
+        .row {
+          grid-template-columns: 1fr;
+        }
+
+        .header {
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .header .btn,
+        .header .save-btn {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header">
+        <button class="btn" type="button" onclick="window.location.href='index.html'"><i class="fas fa-arrow-left"></i>
+          Cancel</button>
+        <button class="btn save-btn" type="submit" form="edit-form">Save Changes</button>
+      </div>
+
+      <div class="content">
+        <h1>Edit Student</h1>
+        <form id="edit-form">
+          <input type="hidden" id="studentIndex">
+
+          <div class="form-section">
+            <h2>Personal Information</h2>
+            <div class="row">
+              <div class="edit-field">
+                <label for="studentId">Student ID</label>
+                <input type="text" id="studentId" readonly>
+              </div>
+              <div class="edit-field">
+                <label for="name">Name</label>
+                <input type="text" id="name">
+                <div class="error-message" id="name-error"></div>
+              </div>
+              <div class="edit-field">
+                <label for="course">Course</label>
+                <input type="text" id="course">
+                <div class="error-message" id="course-error"></div>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="form-section">
-          <h2>Teacher Information</h2>
-          <div id="teachers-container"></div>
-        </div>
+          <div class="form-section">
+            <h2>Teacher Information</h2>
+            <div id="teachers-container"></div>
+          </div>
 
-        <div class="form-section">
-          <h2>Scores</h2>
-          <div id="scores-container"></div>
-        </div>
+          <div class="form-section">
+            <h2>Scores</h2>
+            <div id="scores-container"></div>
+          </div>
 
-        <div class="form-section">
-          <h2>Address</h2>
-          <div class="row">
-            <div class="edit-field">
-              <label for="street">Street</label>
-              <input type="text" id="street">
-              <div class="error-message" id="street-error"></div>
-            </div>
-            <div class="edit-field">
-              <label for="city">City</label>
-              <input type="text" id="city">
-              <div class="error-message" id="city-error"></div>
-            </div>
-            <div class="edit-field">
-              <label for="country">Country</label>
-              <input type="text" id="country">
-              <div class="error-message" id="country-error"></div>
-            </div>
-            <div class="edit-field">
-              <label for="pincode">Pincode</label>
-              <input type="text" id="pincode">
-              <div class="error-message" id="pincode-error"></div>
+          <div class="form-section">
+            <h2>Address</h2>
+            <div class="row">
+              <div class="edit-field">
+                <label for="street">Street</label>
+                <input type="text" id="street">
+                <div class="error-message" id="street-error"></div>
+              </div>
+              <div class="edit-field">
+                <label for="city">City</label>
+                <input type="text" id="city">
+                <div class="error-message" id="city-error"></div>
+              </div>
+              <div class="edit-field">
+                <label for="country">Country</label>
+                <input type="text" id="country">
+                <div class="error-message" id="country-error"></div>
+              </div>
+              <div class="edit-field">
+                <label for="pincode">Pincode</label>
+                <input type="text" id="pincode">
+                <div class="error-message" id="pincode-error"></div>
+              </div>
             </div>
           </div>
-        </div>
 
-      </form>
+        </form>
+      </div>
     </div>
-  </div>
 
-  <script src="edit.js"></script>
-</body>
+    <script src="edit.js"></script>
+  </body>
 
-</html>
+  </html>

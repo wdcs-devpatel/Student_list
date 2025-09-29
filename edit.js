@@ -1,79 +1,182 @@
 document.addEventListener('DOMContentLoaded', () => {
     const index = new URLSearchParams(window.location.search).get('index');
     const students = JSON.parse(sessionStorage.getItem('studentsData')) || [];
-    const student = students[index];
+    let student = index !== null ? students[index] : null;
 
+    // ... (rest of the 'if (student)' block remains the same)
 
-    document.getElementById("studentIndex").value = index;
-    document.getElementById("studentId").value = student.studentId;
-    document.getElementById("name").value = student.name || '';
-    document.getElementById("course").value = student.course || '';
-    document.getElementById("street").value = student.personalInfo.address.street || '';
-    document.getElementById("city").value = student.personalInfo.address.city || '';
-    document.getElementById("country").value = student.personalInfo.address.country || '';
-    document.getElementById("pincode").value = student.personalInfo.address.pincode || '';
+    if (student) {
+        document.getElementById("studentIndex").value = index;
+        document.getElementById("studentId").value = student.studentId;
+        document.getElementById("studentId").readOnly = true;
+        document.getElementById("name").value = student.name || '';
+        document.getElementById("course").value = student.course || '';
+        document.getElementById("street").value = student.personalInfo.address.street || '';
+        document.getElementById("city").value = student.personalInfo.address.city || '';
+        document.getElementById("country").value = student.personalInfo.address.country || '';
+        document.getElementById("pincode").value = student.personalInfo.address.pincode || '';
 
-    const teachersContainer = document.getElementById("teachers-container");
-    teachersContainer.innerHTML = "";
-    student.subjects.forEach((sub, i) => {
-        const div = document.createElement("div");
-        div.classList.add("dynamic-section");
-        div.innerHTML = `
-                    <h2>Subject: ${sub.subName}</h2>
+        const teachersContainer = document.getElementById("teachers-container");
+        teachersContainer.innerHTML = "";
+        student.subjects.forEach((sub, i) => {
+            const div = document.createElement("div");
+            div.classList.add("dynamic-section");
+            div.innerHTML = `
+                <h2>Subject: <input type="text" value="${sub.subName}" readonly></h2>
+                <div class="edit-field">
+                  <label for="teacher-${i}">Teacher Name</label>
+                  <input type="text" id="teacher-${i}" value="${sub.teacher.name || ''}">
+                  <div class="error-message" id="teacher-name-error-${i}"></div>
+                </div>
+                <div class="edit-field">
+                  <label for="email-${i}">Teacher Email</label>
+                  <input type="email" id="email-${i}" value="${sub.teacher.contactInfo.email || ''}">
+                  <div class="error-message" id="teacher-email-error-${i}"></div>
+                </div>
+            `;
+            teachersContainer.appendChild(div);
+        });
+
+        const scoresContainer = document.getElementById("scores-container");
+        scoresContainer.innerHTML = "";
+        let totalScore = 0;
+
+        if (student.result.length) {
+            student.result.forEach((res, i) => {
+                totalScore += res.score;
+                const div = document.createElement("div");
+                div.classList.add("dynamic-section");
+                div.innerHTML = `
+                    <h3>${res.subject} Marks</h3>
                     <div class="edit-field">
-                    <label for="teacher-${i}">Teacher Name</label>
-                    <input type="text" id="teacher-${i}" value="${sub.teacher.name || ''}">
-                    <div class="error-message" id="teacher-name-error-${i}"></div>
-                    </div>
-                    <div class="edit-field">
-                    <label for="email-${i}">Teacher Email</label>
-                    <input type="email" id="email-${i}" value="${sub.teacher.contactInfo.email || ''}">
-                    <div class="error-message" id="teacher-email-error-${i}"></div>
+                        <label for="score-${i}">${res.subject} Score</label>
+                        <input type="number" id="score-${i}" value="${res.score}" data-subject="${res.subject}">
+                        <div class="error-message" id="score-error-${i}"></div>
                     </div>
                 `;
-        teachersContainer.appendChild(div);
-    });
+                scoresContainer.appendChild(div);
+            });
 
-    const scoresContainer = document.getElementById("scores-container");
-    scoresContainer.innerHTML = "";
-    student.result.forEach((res, i) => {
-        const div = document.createElement("div");
-        div.classList.add("dynamic-section");
-        div.innerHTML = `
-            <h3>Subject: ${res.subject}</h3>
-            <div class="edit-field">
-              <label for="score-${i}">Score</label>
-              <input type="number" id="score-${i}" value="${res.score}" data-subject="${res.subject}">
-              <div class="error-message" id="score-error-${i}"></div>
+            const average = (totalScore / student.result.length).toFixed(2);
+            const grade = Grade(average);
+
+            const avgDiv = document.createElement("div");
+            avgDiv.classList.add("edit-field");
+            avgDiv.innerHTML = `
+                <label for="average-grade">Average Grade</label>
+                <input type="text" id="average-grade" value="${average} (${grade})" readonly>
+            `;
+            scoresContainer.appendChild(avgDiv);
+        }
+    } else {
+        document.getElementById("studentId").value = students.length ? (Math.max(...students.map(s => s.studentId)) + 1) : 1;
+        document.getElementById("studentId").readOnly = false;
+
+        const teachersContainer = document.getElementById("teachers-container");
+        teachersContainer.innerHTML = `
+            <div class="dynamic-section">
+                <h2>Subject: <input type="text" value="Math" readonly></h2>
+                <div class="edit-field">
+                  <label for="teacher-0">Teacher Name</label>
+                  <input type="text" id="teacher-0">
+                  <div class="error-message" id="teacher-name-error-0"></div>
+                </div>
+                <div class="edit-field">
+                  <label for="email-0">Teacher Email</label>
+                  <input type="email" id="email-0">
+                  <div class="error-message" id="teacher-email-error-0"></div>
+                </div>
             </div>
         `;
-        scoresContainer.appendChild(div);
-    });
+
+        const scoresContainer = document.getElementById("scores-container");
+        scoresContainer.innerHTML = `
+            <div class="dynamic-section">
+                <h3>Math Marks</h3>
+                <div class="edit-field">
+                    <label for="score-0">Math Score</label>
+                    <input type="number" id="score-0">
+                    <div class="error-message" id="score-error-0"></div>
+                </div>
+            </div>
+            <div class="dynamic-section">
+                <h3>Science Marks</h3>
+                <div class="edit-field">
+                    <label for="score-1">Science Score</label>
+                    <input type="number" id="score-1">
+                    <div class="error-message" id="score-error-1"></div>
+                </div>
+            </div>
+            <div class="dynamic-section">
+                <h3>English Marks</h3>
+                <div class="edit-field">
+                    <label for="score-2">English Score</label>
+                    <input type="number" id="score-2">
+                    <div class="error-message" id="score-error-2"></div>
+                </div>
+            </div>
+        `;
+    }
+
+
+    function Grade(avg) {
+        const score = parseFloat(avg);
+        if (score >= 90) return "A";
+        if (score >= 80) return "B";
+        if (score >= 70) return "C";
+        if (score >= 60) return "D";
+        return "F";
+    }
 
     document.getElementById("edit-form").addEventListener("submit", e => {
         e.preventDefault();
 
         if (validateForm()) {
-            student.name = document.getElementById("name").value;
-            student.course = document.getElementById("course").value;
-            student.personalInfo.address.street = document.getElementById("street").value;
-            student.personalInfo.address.city = document.getElementById("city").value;
-            student.personalInfo.address.country = document.getElementById("country").value;
-            student.personalInfo.address.pincode = document.getElementById("pincode").value;
+            if (student) {
+                student.name = document.getElementById("name").value;
+                student.course = document.getElementById("course").value;
+                student.personalInfo.address.street = document.getElementById("street").value;
+                student.personalInfo.address.city = document.getElementById("city").value;
+                student.personalInfo.address.country = document.getElementById("country").value;
+                student.personalInfo.address.pincode = document.getElementById("pincode").value;
 
-            student.subjects.forEach((sub, i) => {
-                sub.teacher.name = document.getElementById(`teacher-${i}`).value;
-                sub.teacher.contactInfo.email = document.getElementById(`email-${i}`).value;
-            });
+                student.subjects.forEach((sub, i) => {
+                    sub.teacher.name = document.getElementById(`teacher-${i}`).value;
+                    sub.teacher.contactInfo.email = document.getElementById(`email-${i}`).value;
+                });
 
-            student.result.forEach((res, i) => {
-                const scoreInput = document.getElementById(`score-${i}`);
-                res.score = parseFloat(scoreInput.value);
-            });
+                student.result.forEach((res, i) => {
+                    const scoreInput = document.getElementById(`score-${i}`);
+                    res.score = parseFloat(scoreInput.value) || 0;
+                });
 
-            students[index] = student;
+                students[index] = student;
+            } else {
+                const newStudent = {
+                    studentId: parseInt(document.getElementById("studentId").value),
+                    name: document.getElementById("name").value,
+                    course: document.getElementById("course").value,
+                    personalInfo: {
+                        address: {
+                            street: document.getElementById("street").value,
+                            city: document.getElementById("city").value,
+                            country: document.getElementById("country").value,
+                            pincode: document.getElementById("pincode").value
+                        }
+                    },
+                    subjects: [
+                        { subName: "Math", teacher: { name: document.getElementById("teacher-0").value, contactInfo: { email: document.getElementById("email-0").value } } }
+                    ],
+                    result: [
+                        { subject: "Math", score: parseFloat(document.getElementById("score-0").value) || 0 },
+                        { subject: "Science", score: parseFloat(document.getElementById("score-1").value) || 0 },
+                        { subject: "English", score: parseFloat(document.getElementById("score-2").value) || 0 }
+                    ]
+                };
+                students.push(newStudent);
+            }
+
             sessionStorage.setItem('studentsData', JSON.stringify(students));
-            alert("Student information updated successfully!");
             window.location.href = 'index.html';
         }
     });
@@ -125,34 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
             isValid = false;
         }
 
-        student.subjects.forEach((sub, i) => {
-            const teacherName = document.getElementById(`teacher-${i}`).value.trim();
-            if (teacherName === '') {
-                document.getElementById(`teacher-name-error-${i}`).textContent = "Teacher name is required.";
-                document.getElementById(`teacher-name-error-${i}`).style.display = 'block';
-                isValid = false;
-            }
-
-            const teacherEmail = document.getElementById(`email-${i}`).value.trim();
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(teacherEmail)) {
-                document.getElementById(`teacher-email-error-${i}`).textContent = "Invalid email format.";
-                document.getElementById(`teacher-email-error-${i}`).style.display = 'block';
-                isValid = false;
-            }
-        });
-
-        student.result.forEach((res, i) => {
-            const scoreInput = document.getElementById(`score-${i}`);
-            const score = parseFloat(scoreInput.value);
-
-            if (isNaN(score) || score < 0 || score > 100) {
-                document.getElementById(`score-error-${i}`).textContent = "Score must be a number between 0 and 100.";
-                document.getElementById(`score-error-${i}`).style.display = 'block';
-                isValid = false;
-            }
-        });
-
         return isValid;
     }
 });
+
