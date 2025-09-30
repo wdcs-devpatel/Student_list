@@ -167,5 +167,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    window.AscDesc = AscDesc;
+    
 });

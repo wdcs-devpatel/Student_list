@@ -14,31 +14,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function generateOTP() {
         return Math.floor(100000 + Math.random() * 900000).toString();}
-
     if (Editing) {
         otpSection.style.display = "block";
         setTimeout(() => {
         alert("Your OTP is: " + generatedOTP); 
         }, 100);
-
         verifyBtn.onclick=() => {
             const enteredOTP=otpInput.value.trim();
 
             if (enteredOTP===generatedOTP) {
+                otpSection.style.display="none";
                 studentFormSection.style.display="block";
                 loadStudentData();
             } else {
                 otpInput.value = "";
                 otpError.innerText ="Invalid OTP. Try again after 5 minutes.";
                 otpError.style.display ="block";
-
                 otpInput.disabled = true;
                 verifyBtn.disabled= true;
 
                 setTimeout(()=>{
                     generatedOTP = generateOTP();
                     alert("New OTP: " + generatedOTP);
-
                     otpInput.disabled = false;
                     verifyBtn.disabled = false;
                     otpError.style.display = "none";
