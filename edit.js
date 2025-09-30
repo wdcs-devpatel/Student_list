@@ -18,16 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (Editing) {
-        alert("Your OTP is: " + generatedOTP); 
-         function generateOTP() {
-        return Math.floor(100000 + Math.random() * 900000).toString();
-      
-    }
-    //hello
-        
-        
         otpSection.style.display = "block";
         studentFormSection.style.display = "none";
+
+        setTimeout(() => {
+            alert("Your OTP is: " + generatedOTP);
+        }, 100);
 
         verifyBtn.onclick = () => {
             const enteredOTP = otpInput.value.trim();
@@ -37,10 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 studentFormSection.style.display = "block";
                 loadStudentData();
             } else {
-                
-                otpInput.value = ""; 
-
-                
+                otpInput.value = "";
                 otpError.innerText = "Invalid OTP. Try again after 5 minutes.";
                 otpError.style.display = "block";
 
@@ -49,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 setTimeout(() => {
                     generatedOTP = generateOTP();
-                   
                     alert("New OTP: " + generatedOTP);
 
                     otpInput.disabled = false;
@@ -58,8 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 300000);
             }
         };
-    }
-    else {
+    } else {
         otpSection.style.display = "none";
         studentFormSection.style.display = "block";
         loadStudentData();
