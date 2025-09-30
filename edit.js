@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const Editing = index !== null;
     const students = JSON.parse(sessionStorage.getItem('studentsData')) || [];
     let student = Editing ? students[index] : null;
-
     const otpSection = document.getElementById("otp-section");
     const studentFormSection = document.getElementById("student-form-section");
     const verifyBtn = document.getElementById("verify-btn");
@@ -14,42 +13,30 @@ document.addEventListener('DOMContentLoaded', () => {
     let generatedOTP = generateOTP();
 
     function generateOTP() {
-        return Math.floor(100000 + Math.random() * 900000).toString();
-    }
+        return Math.floor(100000 + Math.random() * 900000).toString();}
 
     if (Editing) {
-        alert("Your OTP is: " + generatedOTP); 
-         function generateOTP() {
-        return Math.floor(100000 + Math.random() * 900000).toString();
-      
-    }
-    //hello
-        
-        
         otpSection.style.display = "block";
-        studentFormSection.style.display = "none";
+        setTimeout(() => {
+        alert("Your OTP is: " + generatedOTP); 
+        }, 100);
 
-        verifyBtn.onclick = () => {
-            const enteredOTP = otpInput.value.trim();
+        verifyBtn.onclick=() => {
+            const enteredOTP=otpInput.value.trim();
 
-            if (enteredOTP === generatedOTP) {
-                otpSection.style.display = "none";
-                studentFormSection.style.display = "block";
+            if (enteredOTP===generatedOTP) {
+                studentFormSection.style.display="block";
                 loadStudentData();
             } else {
-                
-                otpInput.value = ""; 
-
-                
-                otpError.innerText = "Invalid OTP. Try again after 5 minutes.";
-                otpError.style.display = "block";
+                otpInput.value = "";
+                otpError.innerText ="Invalid OTP. Try again after 5 minutes.";
+                otpError.style.display ="block";
 
                 otpInput.disabled = true;
-                verifyBtn.disabled = true;
+                verifyBtn.disabled= true;
 
-                setTimeout(() => {
+                setTimeout(()=>{
                     generatedOTP = generateOTP();
-                   
                     alert("New OTP: " + generatedOTP);
 
                     otpInput.disabled = false;
@@ -58,9 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 300000);
             }
         };
-    }
-    else {
-        otpSection.style.display = "none";
+    } else {
         studentFormSection.style.display = "block";
         loadStudentData();
     }
