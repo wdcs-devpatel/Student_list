@@ -1,28 +1,25 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const index = urlParams.get('index');
-    const Editing = index !== null;
-    const students = JSON.parse(sessionStorage.getItem('studentsData')) || [];
-    let student = Editing ? students[index] : null;
-    const otpSection = document.getElementById("otp-section");
-    const studentFormSection = document.getElementById("student-form-section");
-    const verifyBtn = document.getElementById("verify-btn");
-    const otpInput = document.getElementById("otp-input");
-    const otpError = document.getElementById("otp-error");
-
-    let generatedOTP = generateOTP();
-
-    function generateOTP() {
-        return Math.floor(100000 + Math.random() * 900000).toString();}
-    if (Editing) {
-        otpSection.style.display = "block";
-        setTimeout(() => {
-        alert("Your OTP is: " + generatedOTP); 
-        }, 100);
-        verifyBtn.onclick=() => {
-            const enteredOTP=otpInput.value.trim();
-
-            if (enteredOTP===generatedOTP) {
+const urlParams = new URLSearchParams(window.location.search);
+const index = urlParams.get('index');
+const Editing = index!== null;
+const students=JSON.parse(sessionStorage.getItem('studentsData')) || [];
+let student = Editing?students[index] : null;
+const otpSection = document.getElementById("otp-section");
+const studentFormSection = document.getElementById("student-form-section");
+const verifyBtn = document.getElementById("verify-btn");
+const otpInput = document.getElementById("otp-input");
+const otpError = document.getElementById("otp-error");
+let generatedOTP = generateOTP();
+function generateOTP() {
+    return Math.floor(100000 + Math.random() * 900000).toString();}
+if (Editing) {
+       otpSection.style.display = "block";
+       setTimeout(() => {
+       alert("Your OTP is: " + generatedOTP); 
+       }, 100);
+       verifyBtn.onclick=() => {
+           const enteredOTP=otpInput.value.trim();
+           if (enteredOTP===generatedOTP) {
                 otpSection.style.display="none";
                 studentFormSection.style.display="block";
                 loadStudentData();
@@ -39,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     otpInput.disabled = false;
                     verifyBtn.disabled = false;
                     otpError.style.display = "none";
-                }, 300000);
+                }, 300000);  //30000 millisecond=5 min
             }
         };
     } else {
@@ -173,12 +170,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     student.personalInfo.address.country = document.getElementById("country").value;
                     student.personalInfo.address.pincode = document.getElementById("pincode").value;
 
-                    student.subjects.forEach((sub, i) => {
+                    student.subjects.map((sub, i) => {
                         sub.teacher.name = document.getElementById(`teacher-${i}`).value;
                         sub.teacher.contactInfo.email = document.getElementById(`email-${i}`).value;
                     });
 
-                    student.result.forEach((res, i) => {
+                    student.result.map((res, i) => {
                         const scoreInput = document.getElementById(`score-${i}`);
                         res.score = parseFloat(scoreInput.value) || 0;
                     });
@@ -215,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         function Grade(avg) {
-            const score = parseFloat(avg);
+            const score = avg;
             if (score >= 90) return "A";
             if (score >= 80) return "B";
             if (score >= 70) return "C";
