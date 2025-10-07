@@ -11,16 +11,18 @@
     <h1>Student List</h1>
 
     <div class="top-bar">
-      <div class="search">
-        <input type="text" id="searchbar" class="search-input" placeholder="🔍 Search by name..."
-          onchange="searchStudent()" />
-      </div>
+   <div class="search">
+  <input type="text" id="searchbar" class="search-input" placeholder="Search by name..." />
+  <button id="voice-btn" type="button" title="Voice Search">🎤</button>
+</div>
+
+
       <div class="actions">
         <button onclick="window.location.href='edit.html'">➕ Add Student</button>
       </div>
     </div>
 
-   <div>
+    <div>
       <table>
         <thead>
           <tr>
